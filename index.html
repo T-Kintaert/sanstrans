@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SansTrans – Sanskrit transliteration tool for Windows</title>
+<meta name="description" content="SansTrans: free tool for typing and converting Sanskrit transliteration (IAST, ISO 15919 and others) on Windows. / Kostenloses Werkzeug zum Tippen und Umwandeln von Sanskrit-Transliteration unter Windows.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23224c7a'/%3E%3Ctext x='32' y='46' font-size='40' text-anchor='middle' fill='white' font-family='Georgia,serif'%3E%C4%81%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#fbfaf7; --fg:#1d2430; --muted:#5b6575; --card:#ffffff; --line:#e1ddd3;
+  --accent:#224c7a; --accent-fg:#ffffff; --note:#fff7e0; --note-line:#e8d28a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171c; --fg:#e8e6df; --muted:#a3abb8; --card:#1b1f26; --line:#2d333d;
+    --accent:#7fb0e6; --accent-fg:#0e1620; --note:#2a2616; --note-line:#6b5d2a;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 "Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif}
+main{max-width:46rem;margin:0 auto;padding:1.2rem 16px 3rem}
+a{color:var(--accent);overflow-wrap:anywhere}
+.top{display:flex;justify-content:flex-end;gap:.4rem;margin-bottom:.6rem}
+.top button{font:inherit;font-size:.9rem;padding:.25rem .8rem;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;cursor:pointer}
+.top button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+h1{font-size:2rem;line-height:1.2;margin:.2rem 0 .4rem;font-family:Georgia,"Times New Roman",serif}
+h2{font-size:1.2rem;margin:2rem 0 .5rem;padding-top:.4rem;border-top:1px solid var(--line)}
+.lead{font-size:1.1rem;color:var(--muted);margin:0 0 1.2rem}
+.btns{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0 .8rem}
+.btn{display:inline-block;padding:.6rem 1.1rem;border-radius:8px;border:1px solid var(--accent);text-decoration:none;font-weight:600}
+.btn.primary{background:var(--accent);color:var(--accent-fg)}
+.btn.secondary{color:var(--accent);background:transparent}
+.note{background:var(--note);border:1px solid var(--note-line);border-radius:8px;padding:.7rem .9rem;font-size:.95rem;margin:.8rem 0}
+ul,ol{padding-left:1.3rem}
+li{margin:.3rem 0}
+code{font-family:Consolas,"SFMono-Regular",monospace;font-size:.92em;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:0 .3em}
+footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem}
+.js [lang]:not([lang=""]){display:none}
+.js.de [lang="de"], .js.en [lang="en"]{display:block}
+.js.de span[lang="de"], .js.en span[lang="en"]{display:inline}
+.js.de li[lang="de"], .js.en li[lang="en"]{display:list-item}
+.js.de a[lang="de"], .js.en a[lang="en"]{display:inline-block}
+html:not(.js) [lang="en"].block{margin-top:2rem}
+</style>
+<script>
+(function(){
+  var d=document.documentElement, l="de";
+  try{ l=(localStorage.getItem("sanstrans-lang"))||""; }catch(e){}
+  if(l!=="de"&&l!=="en"){ l=((navigator.language||"de").slice(0,2)==="de")?"de":"en"; }
+  d.className="js "+l; d.lang=l;
+  window.setLang=function(x){
+    d.className="js "+x; d.lang=x;
+    try{ localStorage.setItem("sanstrans-lang",x); }catch(e){}
+    var b=document.querySelectorAll(".top button");
+    for(var i=0;i<b.length;i++){ b[i].setAttribute("aria-pressed", b[i].getAttribute("data-l")===x?"true":"false"); }
+  };
+  document.addEventListener("DOMContentLoaded",function(){ window.setLang(l); });
+})();
+</script>
+</head>
+<body>
+<main>
+<div class="top" role="group" aria-label="Sprache / Language">
+  <button type="button" data-l="de" aria-pressed="true" onclick="setLang('de')">Deutsch</button>
+  <button type="button" data-l="en" aria-pressed="false" onclick="setLang('en')">English</button>
+</div>
+
+<!-- ============================ DEUTSCH ============================ -->
+<div lang="de" class="block">
+<h1>SansTrans</h1>
+<p class="lead">Ein kostenloses Werkzeug zum Tippen und Umwandeln von Sanskrit-Transliteration (IAST, ISO 15919 u. a.) unter Windows. Jede:r legt die Tastenkürzel selbst fest; die App läuft in allen Programmen (Textverarbeitung, Browser, E-Mail …) und braucht keine Administratorrechte.</p>
+<div class="btns">
+  <a class="btn primary" href="https://github.com/t-kintaert/sanstrans/releases/latest/download/SansTrans.exe">SansTrans.exe herunterladen (Windows)</a>
+  <a class="btn secondary" href="https://github.com/t-kintaert/sanstrans/releases/latest">Alle Versionen und Hinweise</a>
+  <a class="btn secondary" href="https://github.com/t-kintaert/sanstrans">Quelltext (GitHub)</a>
+</div>
+<div class="note"><strong>Hinweis zu Windows-Warnungen:</strong> Die <code>.exe</code> ist nicht signiert. Windows (Microsoft Defender SmartScreen) und manche Virenscanner zeigen daher beim ersten Start „Unbekannter Herausgeber“ an. Wählen Sie „Weitere Informationen“ ▸ „Trotzdem ausführen“. Auf verwalteten Firmen-PCs kann das gesperrt sein.</div>
+
+<h2>Funktionen</h2>
+<ul>
+<li><strong>Tastenkürzel für Diakritika</strong>, z. B. <code>Alt+a</code> = ā, <code>Alt+s</code> = ś. Schemas: IAST, ISO 15919 und eigene.</li>
+<li><strong>Zusatzkürzel</strong> (z. B. √, ḻ, ŭ) in eigenen Listen, die zusätzlich zum gewählten Schema gelten; jede Liste lässt sich im Menü per Klick an- oder ausschalten.</li>
+<li><strong>Zeichenpalette</strong> (<code>Strg+Alt+Umschalt+P</code>): kleines Fenster mit den Zusatzzeichen zum Anklicken.</li>
+<li><strong>Export / Import</strong> von Schemas, Zusatzkürzeln und Einstellungen als <code>.json</code>-Datei.</li>
+<li><strong>Umwandlung</strong>: IAST, ISO 15919, Harvard-Kyoto, ITRANS, Velthuis, SLP1, Schichtschreibweise ⇄ Devanāgarī.</li>
+<li><strong>Live-Modus:</strong> Devanāgarī direkt schreiben: Sie tippen die IAST-Umschrift auf der Tastatur, und Devanāgarī erscheint sofort (mit Ligaturen).</li>
+<li><strong>Text bereinigen:</strong> Unicode-Normalisierung, Apostrophe, Leerzeichen, Silbentrennung.</li>
+<li><strong>Bonus (kein Sanskrit): Tibetisch.</strong> Wylie ⇄ tibetische Schrift in den Stilen Uchen, Ume und Khyuyig.</li>
+<li>Menüs und Fenster auf <strong>Deutsch und Englisch</strong>.</li>
+</ul>
+
+<h2>Start</h2>
+<ol>
+<li><code>SansTrans.exe</code> herunterladen und doppelklicken. Eine Installation ist nicht nötig.</li>
+<li>Das ā-Symbol erscheint unten rechts neben der Uhr im Infobereich der Taskleiste (ist es ausgeblendet, erscheint es erst nach einem Klick auf das kleine Pfeilsymbol am Rand des Infobereichs). Rechtsklick öffnet das Menü.</li>
+<li>Optional im Menü „Mit Windows starten“ anhaken.</li>
+</ol>
+<p>Alternative ohne <code>.exe</code>: <a href="https://www.autohotkey.com/">AutoHotkey v2</a> installieren und <code>SansTrans.ahk</code> doppelklicken; der Quelltext ist offen lesbar.</p>
+
+<h2>Datenschutz</h2>
+<p>Die Anwendung läuft vollständig auf Ihrem Computer. Es werden keine Daten erfasst oder übertragen, und es wird keine Internetverbindung benötigt. Einstellungen, Schemas und Zusatzkürzel liegen als Textdateien im Ordner <code>%AppData%\SansTrans</code>.</p>
+
+<h2>Lizenz und Zitieren</h2>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.de">CC BY-NC-SA 4.0</a>: Die App darf geteilt und verändert werden (Namensnennung, nicht-kommerziell, Weitergabe unter gleichen Bedingungen).</p>
+<p>Zitiervorschlag: Thomas Kintaert: <em>SansTrans – Sanskrit transliteration tool for Windows</em> (2026). <a href="https://stb.univie.ac.at/">Institut für Südasien-, Tibet- und Buddhismuskunde</a>, Universität Wien. <a href="https://t-kintaert.github.io/sanstrans/">https://t-kintaert.github.io/sanstrans/</a></p>
+
+<h2>Konzeption, Quellen</h2>
+<ul>
+<li>Konzeption: Thomas Kintaert, <a href="https://stb.univie.ac.at/">Institut für Südasien-, Tibet- und Buddhismuskunde (ISTB)</a>, Universität Wien. Erstellungszeitraum: Oktober 2026.</li>
+<li>Entwickelt im dialogischen Prozess mit Künstlicher Intelligenz (Claude Sonnet 5.5); geschrieben in AutoHotkey v2.</li>
+<li>Schichtschreibweise: entnommen dem <a href="https://sri.auroville.org/projects/sanskrit-writer/">Sanskrit Writer</a> des Sanskrit Research Institute, Auroville.</li>
+<li>Wylie: Extended Wylie Transliteration Scheme (EWTS) der Tibetan and Himalayan Library, nach Turrell Wylie.</li>
+<li>IAST, ISO 15919, Harvard-Kyoto, ITRANS (Avinash Chopde), Velthuis (Frans Velthuis), SLP1 (Peter Scharf, Malcolm Hyman).</li>
+</ul>
+</div>
+
+<!-- ============================ ENGLISH ============================ -->
+<div lang="en" class="block">
+<h1>SansTrans</h1>
+<p class="lead">A free tool for typing and converting Sanskrit transliteration (IAST, ISO 15919 and others) on Windows. Everyone defines their own keyboard shortcuts; it works in all programs (word processor, browser, e-mail …) and needs no administrator rights.</p>
+<div class="btns">
+  <a class="btn primary" href="https://github.com/t-kintaert/sanstrans/releases/latest/download/SansTrans.exe">Download SansTrans.exe (Windows)</a>
+  <a class="btn secondary" href="https://github.com/t-kintaert/sanstrans/releases/latest">All versions and notes</a>
+  <a class="btn secondary" href="https://github.com/t-kintaert/sanstrans">Source code (GitHub)</a>
+</div>
+<div class="note"><strong>About Windows warnings:</strong> The <code>.exe</code> is not code-signed, so Windows (Microsoft Defender SmartScreen) and some virus scanners show “Unknown publisher” at first start. Choose “More info” ▸ “Run anyway”. On managed company PCs this may be blocked.</div>
+
+<h2>Features</h2>
+<ul>
+<li><strong>Shortcuts for diacritics</strong>, e.g. <code>Alt+a</code> = ā, <code>Alt+s</code> = ś. Schemes: IAST, ISO 15919 and your own.</li>
+<li><strong>Extra shortcuts</strong> (e.g. √, ḻ, ŭ) kept in lists of their own that apply in addition to the chosen scheme; each list can be switched on or off with a click in the menu.</li>
+<li><strong>Character palette</strong> (<code>Ctrl+Alt+Shift+P</code>): small window with your extra characters to click.</li>
+<li><strong>Export / Import</strong> of schemes, extra shortcuts and settings as a <code>.json</code> file.</li>
+<li><strong>Converter</strong>: IAST, ISO 15919, Harvard-Kyoto, ITRANS, Velthuis, SLP1, layered notation ⇄ Devanāgarī.</li>
+<li><strong>Live mode:</strong> write Devanāgarī directly: you type the IAST transliteration on the keyboard and Devanāgarī appears at once (with conjuncts).</li>
+<li><strong>Clean up text:</strong> Unicode normalisation, apostrophes, spaces, hyphenation.</li>
+<li><strong>Bonus (not Sanskrit): Tibetan.</strong> Wylie ⇄ Tibetan script in the styles Uchen, Ume and Khyuyig.</li>
+<li>Menus and windows in <strong>German and English</strong>.</li>
+</ul>
+
+<h2>Getting started</h2>
+<ol>
+<li>Download <code>SansTrans.exe</code> and double-click it. No installation is needed.</li>
+<li>The ā icon appears at the bottom right next to the clock, in the notification area of the taskbar (if it is hidden, it only appears after a click on the small arrow at the edge of the notification area). Right-click opens the menu.</li>
+<li>Optionally tick “Start with Windows” in the menu.</li>
+</ol>
+<p>Alternative without the <code>.exe</code>: install <a href="https://www.autohotkey.com/">AutoHotkey v2</a> and double-click <code>SansTrans.ahk</code>; the source code is readable.</p>
+
+<h2>Privacy</h2>
+<p>The application runs entirely on your computer. No data is collected or transmitted, and no internet connection is needed. Settings, schemes and extra shortcuts are plain text files in the folder <code>%AppData%\SansTrans</code>.</p>
+
+<h2>Licence and citation</h2>
+<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>: may be shared and modified (attribution, non-commercial, share-alike).</p>
+<p>Suggested citation: Thomas Kintaert: <em>SansTrans – Sanskrit transliteration tool for Windows</em> (2026). <a href="https://stb.univie.ac.at/en/">Department of South Asian, Tibetan and Buddhist Studies</a>, University of Vienna. <a href="https://t-kintaert.github.io/sanstrans/">https://t-kintaert.github.io/sanstrans/</a></p>
+
+<h2>Concept, sources</h2>
+<ul>
+<li>Concept: Thomas Kintaert, <a href="https://stb.univie.ac.at/en/">Department of South Asian, Tibetan and Buddhist Studies</a>, University of Vienna. Created: October 2026.</li>
+<li>Developed in dialogue with artificial intelligence (Claude Sonnet 5.5); written in AutoHotkey v2.</li>
+<li>Layered notation: taken from the <a href="https://sri.auroville.org/projects/sanskrit-writer/">Sanskrit Writer</a> of the Sanskrit Research Institute, Auroville.</li>
+<li>Wylie: Extended Wylie Transliteration Scheme (EWTS) of the Tibetan and Himalayan Library, after Turrell Wylie.</li>
+<li>IAST, ISO 15919, Harvard-Kyoto, ITRANS (Avinash Chopde), Velthuis (Frans Velthuis), SLP1 (Peter Scharf, Malcolm Hyman).</li>
+</ul>
+</div>
+
+<footer>
+<span lang="de"><a href="https://github.com/t-kintaert/sanstrans">GitHub</a> · <a href="https://stb.univie.ac.at/">Institut für Südasien-, Tibet- und Buddhismuskunde, Universität Wien</a></span>
+<span lang="en"><a href="https://github.com/t-kintaert/sanstrans">GitHub</a> · <a href="https://stb.univie.ac.at/en/">Department of South Asian, Tibetan and Buddhist Studies, University of Vienna</a></span>
+</footer>
+</main>
+</body>
+</html>
